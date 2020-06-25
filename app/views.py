@@ -5,6 +5,8 @@ from flask import render_template
 def index():
     return render_template("public/index.html")
 
+#adding something
+
 @app.route("/about")
 def about():
     return """
