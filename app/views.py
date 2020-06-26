@@ -5,6 +5,11 @@ from flask import render_template
 def index():
     return render_template("public/index.html")
 
+@app.route("/client_create")
+def client_create():
+    return render_template("public/client_create.html")
+
+
 #adding something
 
 @app.route("/about")
