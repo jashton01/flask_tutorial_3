@@ -49,6 +49,10 @@ def sign_up():
 
     return render_template("public/sign_up.html")
 
+@app.route("/guestbook")
+def guestbook():
+    return render_template("public/guestbook.html")
+
 @app.route("/jinja")
 def jinja():
     my_name = "Julian"

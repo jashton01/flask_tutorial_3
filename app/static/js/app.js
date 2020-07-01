@@ -49,7 +49,7 @@ function postClientData() {
 // Set up form interceptor
 
 //const form = document.querySelector('.btn btn-secondary btn-block');
-document.getElementById("client_creator").addEventListener("submit", postClientData);
+//document.getElementById("client_creator").addEventListener("submit", postClientData);
 
 
 
