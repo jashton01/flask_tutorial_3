@@ -3,6 +3,7 @@ from flask import render_template
 from flask import request, redirect
 from flask import jsonify, make_response
 from createsend import Subscriber
+from createsend import Client
 
 account_auth = {'api_key':'/7k+rgSybkxGMa64aUb+DPuAGpM5NxC3EjanNlSDjrRom3gKTHe6Z/t5GOJA9IlditAvifnjymZGVH6ZW1xqYE5EnuoJBr9hWXn7yscIZOyoeoJjugUcGix/fb8V2lzJIG+ab56sLijjsgL49KGvWw=='}
 client_auth = {'api_key':'otYR1hX2Rwul5NfryE/34LF2dpnEq54yCYn3ezdGVsEx5m6Ii3JJ0xp1+RpBPsnD2M3Nw7O2fkWTfZTFhGsK6YfZ2bFe2q/f0BVMLC1M08x45xlTEi3KSzjzASFxtxp0Wlepoi9SVYr6ga/vF7bd4A=='}
@@ -13,12 +14,33 @@ def add_subscriber(username):
     my_subscriber.add("7c480b336839fbba731ca50c5d269666", "jashton+api8@sailthru.com", username, custom_fields, True, "yes")
     print("success")
 
+def add_client(prospect_name, prospect_tz):
+    my_client = Client(account_auth)
+    my_client.create(prospect_name, prospect_tz, "United States of America")
+
 @app.route("/")
 def index():
     return render_template("public/index.html")
 
-@app.route("/client_create")
+@app.route("/client_create", methods=["GET", "POST"])
 def client_create():
+    if request.method == "POST":
+        req = request.form
+        missing = list()
+        for k, v in req.items():
+            if v == "":
+                missing.append(k)
+        if missing:
+            feedback = f"Missing fields for {', '.join(missing)}"
+            return render_template("public/client_create.html", feedback=feedback)
+
+        req = request.form
+        print("Your response is:", req)
+        prospect_name = req['prospect_name']
+        prospect_tz = req['prospect_tz']
+        add_client(prospect_name=prospect_name,prospect_tz=prospect_tz)
+        return redirect(request.url)
+
     return render_template("public/client_create.html")
 
 #adding something
