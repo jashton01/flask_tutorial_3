@@ -1,6 +1,7 @@
 from app import app
 from flask import render_template
 from flask import request, redirect
+from flask import jsonify, make_response
 from createsend import Subscriber
 
 account_auth = {'api_key':'/7k+rgSybkxGMa64aUb+DPuAGpM5NxC3EjanNlSDjrRom3gKTHe6Z/t5GOJA9IlditAvifnjymZGVH6ZW1xqYE5EnuoJBr9hWXn7yscIZOyoeoJjugUcGix/fb8V2lzJIG+ab56sLijjsgL49KGvWw=='}
@@ -19,7 +20,6 @@ def index():
 @app.route("/client_create")
 def client_create():
     return render_template("public/client_create.html")
-
 
 #adding something
 
@@ -52,6 +52,17 @@ def sign_up():
 @app.route("/guestbook")
 def guestbook():
     return render_template("public/guestbook.html")
+
+@app.route("/guestbook/create-entry", methods=["POST"])
+def create_entry():
+
+    req = request.get_json()
+
+    print(req)
+
+    res = make_response(jsonify(req), 200)
+
+    return res
 
 @app.route("/jinja")
 def jinja():
