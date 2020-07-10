@@ -8,7 +8,7 @@
    <div class="row">
       <div class="col-lg-6 col-md-6 col-sm-12">
          <h3 class="feature-title">Create New Client</h3>
-         <p>Enter your email adddress and the details of the prospect you are creating this demo for</p>
+         <p>Enter the details of the prospect you are creating this demo for</p>
       </div>
       <form id="client_creator" class="col-lg-6 col-md-6 col-sm-12" action="/client_create" method="POST">
          <h3 class="feature-title">&nbsp</h3>
@@ -16,24 +16,67 @@
             <input type="text" class="form-control" placeholder="Prospect Country" name="prospect_country" id="prospect_country">
          </div>
          <div class="form-group">
-            <input type="text" class="form-control" placeholder="Prospect Name" name="prospect_name">
+            <input type="text" class="form-control" placeholder="Prospect Name" name="prospect_name" id="prospect_name">
          </div>
          <div class="form-group">
-           <select class="custom-select" name="prospect_tz">
+           <select class="custom-select" name="prospect_tz" id="prospect_tz">
               <option selected>Prospect Time Zone</option>
-              <option value="(GMT-05:00) Eastern Time (US & Canada)">(GMT-05:00) Eastern Time (US & Canada)</option>
+              <option value="(GMT-05:00) Eastern Time (US & Canada)">Eastern Time (US & Canada)</option>
               <option value="(GMT-06:00) Central Time (US & Canada)">Central Time (US & Canada)</option>
               <option value="(GMT-07:00) Arizona">Arizona</option>
-              <option value="(GMT-07:00) Mountain Time (US & Canada)">Mountain Time</option>
-              <option value="(GMT-08:00) Pacific Time (US & Canada)">Pacific Time</option>
+              <option value="(GMT-07:00) Mountain Time (US & Canada)">Mountain Time (US & Canada)</option>
+              <option value="(GMT-08:00) Pacific Time (US & Canada)">Pacific Time (US & Canada)</option>
             </select>
           </div>
-         <input type="submit" class="btn btn-secondary btn-block" value="Send" name="">
+         <input type="submit" class="btn btn-secondary btn-block" value="Submit" name="" onclick="create_client();">
          {% if feedback %}
          <p class="text-danger float-right">{{ feedback }}</p>
          {% endif %}
       </form>
    </div>
 </div>
+
+{% endblock %}
+
+{% block script %}
+
+<script>
+
+    function create_client() {
+        console.log("yes its working");
+        var client_country = document.getElementById("prospect_country");
+        var client_tz = document.getElementById("prospect_tz");
+        var client_name = document.getElementById("prospect_name")
+
+        var entry = {
+            client_country: client_country.value,
+            client_tz: client_tz.value,
+            client_name: client_name.value
+        };
+
+        fetch(`${window.origin}/client_create/create_client`, {
+      method: "POST",
+      credentials: "include",
+      body: JSON.stringify(entry),
+      cache: "no-cache",
+      headers: new Headers({
+        "content-type": "application/json"
+      })
+    })
+      .then(function (response) {
+        if (response.status !== 200) {
+          console.log(`Looks like there was a problem. Status code: ${response.status}`);
+          return;
+        }
+        response.json().then(function (data) {
+          console.log(data);
+        });
+      })
+      .catch(function (error) {
+        console.log("Fetch error: " + error);
+      });
+    }
+
+</script>
 
 {% endblock %}

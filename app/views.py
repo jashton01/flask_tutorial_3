@@ -34,14 +34,26 @@ def client_create():
             feedback = f"Missing fields for {', '.join(missing)}"
             return render_template("public/client_create.html", feedback=feedback)
 
-        req = request.form
-        print("Your response is:", req)
-        prospect_name = req['prospect_name']
-        prospect_tz = req['prospect_tz']
-        add_client(prospect_name=prospect_name,prospect_tz=prospect_tz)
-        return redirect(request.url)
+        #req = request.form
+        #print("Your response is:", req)
+        #prospect_name = req['prospect_name']
+        #prospect_tz = req['prospect_tz']
+        #add_client(prospect_name=prospect_name,prospect_tz=prospect_tz)
+        #return redirect(request.url)
 
     return render_template("public/client_create.html")
+
+@app.route("/client_create/create_client", methods=["POST"])
+def create_client():
+    req = request.get_json()
+    print(req)
+    prospect_name = req['client_name']
+    prospect_tz = req['client_tz']
+    add_client(prospect_name=prospect_name,prospect_tz=prospect_tz)
+    res = make_response(jsonify(req), 200)
+    return res
+
+
 
 #adding something
 
