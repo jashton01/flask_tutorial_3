@@ -11,28 +11,8 @@ tz_list=account_admin.timezones()
 
 country_list=account_admin.countries()
 
-client_list=account_admin.clients()
-
-print(client_list[0].ClientID)
-
-client_dict={}
-
-for client in client_list:
-    client_dict[client.Name] = client.ClientID
-
-print(client_dict['Advanced - Automotive'])
-
-#print(my_names[0])
-
-#print(names[0])
-
-
-#print(type(client_list))
-#for c in client_list:
-    #print(dir(c))
-
-#for c in country_list:
-#    print(c)
+for c in country_list:
+    print(c)
 
 #for t in tz_list:
 #    print(t)
@@ -51,6 +31,6 @@ print(client_dict['Advanced - Automotive'])
 
 #my_subscriber.add("7c480b336839fbba731ca50c5d269666", "jashton+api3@sailthru.com", "Subscriber", custom_fields, True, "yes")
 
-#my_client = Client(account_auth)
+my_client = Client(account_auth)
 
-#my_client.create("ZZ API Test Client", "(GMT-05:00) Eastern Time (US & Canada)", "United States of America")
+my_client.create("ZZ API Test Client", "(GMT-05:00) Eastern Time (US & Canada)", "United States of America")

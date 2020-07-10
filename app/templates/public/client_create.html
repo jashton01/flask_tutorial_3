@@ -8,7 +8,7 @@
    <div class="row">
       <div class="col-lg-6 col-md-6 col-sm-12">
          <h3 class="feature-title">Create New Client</h3>
-         <p>Enter the details of the prospect you are creating this demo for</p>
+         <p>Enter your email adddress and the details of the prospect you are creating this demo for</p>
       </div>
       <form id="client_creator" class="col-lg-6 col-md-6 col-sm-12" action="/client_create" method="POST">
          <h3 class="feature-title">&nbsp</h3>
@@ -21,47 +21,19 @@
          <div class="form-group">
            <select class="custom-select" name="prospect_tz">
               <option selected>Prospect Time Zone</option>
-              <option value="(GMT-05:00) Eastern Time (US & Canada)">Eastern Time (US & Canada)</option>
+              <option value="(GMT-05:00) Eastern Time (US & Canada)">(GMT-05:00) Eastern Time (US & Canada)</option>
               <option value="(GMT-06:00) Central Time (US & Canada)">Central Time (US & Canada)</option>
               <option value="(GMT-07:00) Arizona">Arizona</option>
               <option value="(GMT-07:00) Mountain Time (US & Canada)">Mountain Time</option>
               <option value="(GMT-08:00) Pacific Time (US & Canada)">Pacific Time</option>
             </select>
           </div>
-         <input type="submit" class="btn btn-secondary btn-block" value="Submit" name="">
-         {% if feedback %}
-         <p class="text-danger float-right">{{ feedback }}</p>
-         {% endif %}
-      </form>
-   </div>
-   <hr>
-
-   <div class="row">
-      <div class="col-lg-6 col-md-6 col-sm-12">
-         <h3 class="feature-title">Create List & Upload Users</h3>
-         <p>Upload a set of sample users & associated vars to a list in your new account here</p>
-
-      </div>
-      <form id="client_creator" class="col-lg-6 col-md-6 col-sm-12" action="/list_create" method="POST">
-         <h3 class="feature-title">&nbsp</h3>
-         <div class="form-group">
-           <select class="custom-select" name="client_selector">
-              <option selected>Client Name</option>
-              {% for key in clients_and_ids %}
-              <option value="{{ clients_and_ids[key] }}">{{ key }}</option>
-              {% endfor %}
-            </select>
-          </div>
-         <div class="form-group">
-            <input type="text" class="form-control" placeholder="List Name" name="list_name" id="list_name">
-         </div>
          <input type="submit" class="btn btn-secondary btn-block" value="Send" name="">
          {% if feedback %}
          <p class="text-danger float-right">{{ feedback }}</p>
          {% endif %}
       </form>
    </div>
-
 </div>
 
 {% endblock %}
