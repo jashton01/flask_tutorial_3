@@ -2,10 +2,10 @@ from app import app
 from flask import render_template
 from flask import request, redirect
 from flask import jsonify, make_response
-from createsend import Subscriber
-from createsend import Client
-from createsend import Administrator
-from createsend import CreateSend
+from createsend import Subscriber, Client, CreateSend
+#from createsend import Client
+#from createsend import Administrator
+#from createsend import CreateSend
 
 account_auth = {'api_key':'/7k+rgSybkxGMa64aUb+DPuAGpM5NxC3EjanNlSDjrRom3gKTHe6Z/t5GOJA9IlditAvifnjymZGVH6ZW1xqYE5EnuoJBr9hWXn7yscIZOyoeoJjugUcGix/fb8V2lzJIG+ab56sLijjsgL49KGvWw=='}
 client_auth = {'api_key':'otYR1hX2Rwul5NfryE/34LF2dpnEq54yCYn3ezdGVsEx5m6Ii3JJ0xp1+RpBPsnD2M3Nw7O2fkWTfZTFhGsK6YfZ2bFe2q/f0BVMLC1M08x45xlTEi3KSzjzASFxtxp0Wlepoi9SVYr6ga/vF7bd4A=='}
@@ -71,6 +71,12 @@ def create_client():
     res = make_response(jsonify(req), 200)
     return res
 
+@app.route("/client_create/create_list", methods=["POST"])
+def create_list():
+    req = request.get_json()
+    print(req)
+    res = make_response(jsonify(req), 200)
+    return res
 
 
 #adding something

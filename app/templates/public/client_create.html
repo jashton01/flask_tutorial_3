@@ -43,10 +43,10 @@
            <p>Upload a set of sample users & associated vars to a list in your new account here</p>
 
         </div>
-        <form id="client_creator" class="col-lg-6 col-md-6 col-sm-12" action="/list_create" method="POST">
+        <form id="list_selector" class="col-lg-6 col-md-6 col-sm-12" action="/client_create" method="POST">
            <h3 class="feature-title">&nbsp</h3>
            <div class="form-group">
-             <select class="custom-select" name="client_selector">
+             <select class="custom-select" name="list_selector" id="client_selector">
                 <option selected>Client Name</option>
                 {% for key in clients_and_ids %}
                 <option value="{{ clients_and_ids[key] }}">{{ key }}</option>
@@ -56,7 +56,7 @@
            <div class="form-group">
               <input type="text" class="form-control" placeholder="List Name" name="list_name" id="list_name">
            </div>
-           <input type="submit" class="btn btn-secondary btn-block" value="Submit" name="">
+           <input type="submit" class="btn btn-secondary btn-block" value="Submit" name="" onclick="create_list();">
            {% if feedback %}
            <p class="text-danger float-right">{{ feedback }}</p>
            {% endif %}
@@ -75,7 +75,7 @@
     function create_client() {
         console.log("yes its working");
         var client_country = document.getElementById("prospect_country");
-        var client_tz = document.getElementById("prospect_tz");
+        var client_list = document.getElementById("prospect_tz");
         var client_name = document.getElementById("prospect_name")
 
         var entry = {
@@ -85,6 +85,38 @@
         };
 
         fetch(`${window.origin}/client_create/create_client`, {
+      method: "POST",
+      credentials: "include",
+      body: JSON.stringify(entry),
+      cache: "no-cache",
+      headers: new Headers({
+        "content-type": "application/json"
+      })
+    })
+      .then(function (response) {
+        if (response.status !== 200) {
+          console.log(`Looks like there was a problem. Status code: ${response.status}`);
+          return;
+        }
+        response.json().then(function (data) {
+          console.log(data);
+        });
+      })
+      .catch(function (error) {
+        console.log("Fetch error: " + error);
+      });
+    }
+
+    function create_list() {
+        console.log("list func triggered");
+        var client_name = document.getElementById("client_selector");
+        var list_name = document.getElementById("list_name");
+        var entry = {
+            client_id: client_name.value,
+            list_name: list_name.value
+        };
+
+        fetch(`${window.origin}/client_create/create_list`, {
       method: "POST",
       credentials: "include",
       body: JSON.stringify(entry),
