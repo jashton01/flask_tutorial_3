@@ -1,6 +1,6 @@
 {% extends "public/templates/cm_template.html" %}
 
-{% block title %}CM Client Creation Tool{% endblock %}
+{% block title %}CM Demo Creation Tool{% endblock %}
 
 {% block main %}
 
@@ -34,6 +34,36 @@
          {% endif %}
       </form>
    </div>
+
+
+   <hr>
+   <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-12">
+           <h3 class="feature-title">Create List & Upload Users</h3>
+           <p>Upload a set of sample users & associated vars to a list in your new account here</p>
+
+        </div>
+        <form id="client_creator" class="col-lg-6 col-md-6 col-sm-12" action="/list_create" method="POST">
+           <h3 class="feature-title">&nbsp</h3>
+           <div class="form-group">
+             <select class="custom-select" name="client_selector">
+                <option selected>Client Name</option>
+                {% for key in clients_and_ids %}
+                <option value="{{ clients_and_ids[key] }}">{{ key }}</option>
+                {% endfor %}
+              </select>
+            </div>
+           <div class="form-group">
+              <input type="text" class="form-control" placeholder="List Name" name="list_name" id="list_name">
+           </div>
+           <input type="submit" class="btn btn-secondary btn-block" value="Submit" name="">
+           {% if feedback %}
+           <p class="text-danger float-right">{{ feedback }}</p>
+           {% endif %}
+        </form>
+     </div>
+
+
 </div>
 
 {% endblock %}

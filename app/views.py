@@ -4,9 +4,23 @@ from flask import request, redirect
 from flask import jsonify, make_response
 from createsend import Subscriber
 from createsend import Client
+from createsend import Administrator
+from createsend import CreateSend
 
 account_auth = {'api_key':'/7k+rgSybkxGMa64aUb+DPuAGpM5NxC3EjanNlSDjrRom3gKTHe6Z/t5GOJA9IlditAvifnjymZGVH6ZW1xqYE5EnuoJBr9hWXn7yscIZOyoeoJjugUcGix/fb8V2lzJIG+ab56sLijjsgL49KGvWw=='}
 client_auth = {'api_key':'otYR1hX2Rwul5NfryE/34LF2dpnEq54yCYn3ezdGVsEx5m6Ii3JJ0xp1+RpBPsnD2M3Nw7O2fkWTfZTFhGsK6YfZ2bFe2q/f0BVMLC1M08x45xlTEi3KSzjzASFxtxp0Wlepoi9SVYr6ga/vF7bd4A=='}
+
+def get_clients():
+    account_admin=CreateSend(account_auth)
+    client_list=account_admin.clients()
+    return client_list
+
+def client_name_id(client_list):
+    clients_and_ids = {}
+    for client in client_list:
+        clients_and_ids[client.Name] = client.ClientID
+    return clients_and_ids
+
 
 def add_subscriber(username):
     my_subscriber = Subscriber(client_auth)
@@ -24,6 +38,7 @@ def index():
 
 @app.route("/client_create", methods=["GET", "POST"])
 def client_create():
+
     if request.method == "POST":
         req = request.form
         missing = list()
@@ -34,6 +49,7 @@ def client_create():
             feedback = f"Missing fields for {', '.join(missing)}"
             return render_template("public/client_create.html", feedback=feedback)
 
+        #old code to create client, preserving for posterity
         #req = request.form
         #print("Your response is:", req)
         #prospect_name = req['prospect_name']
@@ -41,7 +57,9 @@ def client_create():
         #add_client(prospect_name=prospect_name,prospect_tz=prospect_tz)
         #return redirect(request.url)
 
-    return render_template("public/client_create.html")
+    my_clients = get_clients()
+    clients_and_ids = client_name_id(my_clients)
+    return render_template("public/client_create.html", my_clients=my_clients, clients_and_ids=clients_and_ids)
 
 @app.route("/client_create/create_client", methods=["POST"])
 def create_client():
