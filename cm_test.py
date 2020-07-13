@@ -1,8 +1,21 @@
-from createsend import *
+from createsend import Subscriber, Client, CreateSend, List
 
 
 account_auth = {'api_key':'/7k+rgSybkxGMa64aUb+DPuAGpM5NxC3EjanNlSDjrRom3gKTHe6Z/t5GOJA9IlditAvifnjymZGVH6ZW1xqYE5EnuoJBr9hWXn7yscIZOyoeoJjugUcGix/fb8V2lzJIG+ab56sLijjsgL49KGvWw=='}
 client_auth = {'api_key':'otYR1hX2Rwul5NfryE/34LF2dpnEq54yCYn3ezdGVsEx5m6Ii3JJ0xp1+RpBPsnD2M3Nw7O2fkWTfZTFhGsK6YfZ2bFe2q/f0BVMLC1M08x45xlTEi3KSzjzASFxtxp0Wlepoi9SVYr6ga/vF7bd4A=='}
+
+
+account_admin=CreateSend(account_auth)
+client_list=account_admin.clients()
+print(client_list[0])
+
+
+clients_and_ids = {}
+for client in client_list:
+    clients_and_ids[client.Name] = client.ClientID
+    #print(clients_and_ids[key])
+
+print(clients_and_ids)
 
 
 account_admin=CreateSend(account_auth)
@@ -11,8 +24,8 @@ tz_list=account_admin.timezones()
 
 country_list=account_admin.countries()
 
-for c in country_list:
-    print(c)
+#for c in country_list:
+    #print(c)
 
 #for t in tz_list:
 #    print(t)
@@ -20,9 +33,9 @@ for c in country_list:
 
 
 
-#my_list = List(client_auth)
+my_list = List(client_auth)
 
-#my_list.create("2bd21ec1091ba743b483563a25062a61", "API List 4", "", False, "")
+my_list.create("4d2f73dd68965d38e9520ee375e247ca", "July 11 v1", "", False, "")
 
 
 #my_subscriber = Subscriber(client_auth)

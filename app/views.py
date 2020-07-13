@@ -2,13 +2,17 @@ from app import app
 from flask import render_template
 from flask import request, redirect
 from flask import jsonify, make_response
-from createsend import Subscriber, Client, CreateSend
+from createsend import Subscriber, Client, CreateSend, List
 #from createsend import Client
 #from createsend import Administrator
 #from createsend import CreateSend
 
 account_auth = {'api_key':'/7k+rgSybkxGMa64aUb+DPuAGpM5NxC3EjanNlSDjrRom3gKTHe6Z/t5GOJA9IlditAvifnjymZGVH6ZW1xqYE5EnuoJBr9hWXn7yscIZOyoeoJjugUcGix/fb8V2lzJIG+ab56sLijjsgL49KGvWw=='}
 client_auth = {'api_key':'otYR1hX2Rwul5NfryE/34LF2dpnEq54yCYn3ezdGVsEx5m6Ii3JJ0xp1+RpBPsnD2M3Nw7O2fkWTfZTFhGsK6YfZ2bFe2q/f0BVMLC1M08x45xlTEi3KSzjzASFxtxp0Wlepoi9SVYr6ga/vF7bd4A=='}
+
+def create_new_list(clientid, list_name):
+    my_list = List(client_auth)
+    my_list.create(clientid, list_name, "", False, "")
 
 def get_clients():
     account_admin=CreateSend(account_auth)
@@ -21,7 +25,6 @@ def client_name_id(client_list):
         clients_and_ids[client.Name] = client.ClientID
     return clients_and_ids
 
-
 def add_subscriber(username):
     my_subscriber = Subscriber(client_auth)
     custom_fields = [{"Key": 'username', "Value": username}]
@@ -31,6 +34,7 @@ def add_subscriber(username):
 def add_client(prospect_name, prospect_tz):
     my_client = Client(account_auth)
     my_client.create(prospect_name, prospect_tz, "United States of America")
+
 
 @app.route("/")
 def index():
@@ -75,7 +79,12 @@ def create_client():
 def create_list():
     req = request.get_json()
     print(req)
+    client_id = req['client_id']
+    list_name = req['list_name']
+    print(type(client_id))
+    create_new_list(clientid=client_id,list_name=list_name)
     res = make_response(jsonify(req), 200)
+    print(res)
     return res
 
 

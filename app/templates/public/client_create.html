@@ -73,9 +73,8 @@
 <script>
 
     function create_client() {
-        console.log("yes its working");
         var client_country = document.getElementById("prospect_country");
-        var client_list = document.getElementById("prospect_tz");
+        var client_tz = document.getElementById("prospect_tz");
         var client_name = document.getElementById("prospect_name")
 
         var entry = {
@@ -100,6 +99,7 @@
         }
         response.json().then(function (data) {
           console.log(data);
+          console.log("yes its working 2");
         });
       })
       .catch(function (error) {
