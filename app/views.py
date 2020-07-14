@@ -11,7 +11,7 @@ account_auth = {'api_key':'/7k+rgSybkxGMa64aUb+DPuAGpM5NxC3EjanNlSDjrRom3gKTHe6Z
 client_auth = {'api_key':'otYR1hX2Rwul5NfryE/34LF2dpnEq54yCYn3ezdGVsEx5m6Ii3JJ0xp1+RpBPsnD2M3Nw7O2fkWTfZTFhGsK6YfZ2bFe2q/f0BVMLC1M08x45xlTEi3KSzjzASFxtxp0Wlepoi9SVYr6ga/vF7bd4A=='}
 
 def create_new_list(clientid, list_name):
-    my_list = List(client_auth)
+    my_list = List(account_auth)
     my_list.create(clientid, list_name, "", False, "")
 
 def get_clients():
@@ -84,7 +84,7 @@ def create_list():
     print(type(client_id))
     create_new_list(clientid=client_id,list_name=list_name)
     res = make_response(jsonify(req), 200)
-    print(res)
+    #print(res)
     return res
 
 

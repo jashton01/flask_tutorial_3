@@ -15,7 +15,7 @@ for client in client_list:
     clients_and_ids[client.Name] = client.ClientID
     #print(clients_and_ids[key])
 
-print(clients_and_ids)
+#print(clients_and_ids)
 
 
 account_admin=CreateSend(account_auth)
@@ -33,9 +33,9 @@ country_list=account_admin.countries()
 
 
 
-my_list = List(client_auth)
+my_list = List(account_auth)
 
-my_list.create("4d2f73dd68965d38e9520ee375e247ca", "July 11 v1", "", False, "")
+my_list.create("9cde80d058d8e4955a076d33b6ec2294", "July 11 v1", "", False, "")
 
 
 #my_subscriber = Subscriber(client_auth)
