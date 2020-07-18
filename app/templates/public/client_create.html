@@ -40,7 +40,7 @@
    <div class="row">
         <div class="col-lg-6 col-md-6 col-sm-12">
            <h3 class="feature-title">Create List & Upload Users</h3>
-           <p>Upload a set of sample users & associated vars to a list in your new account here</p>
+           <p>Use this tool to add an audience to your demo environment. It will create a list called "Main List" in the chosen client, and add 500 randomly-generated profiles to that account. You can also add custom fields to those profiles. Just enter the field name (for example Favorite Cusine) and up to 3 values (for example Italian, Thai, Japanese)</p>
 
         </div>
         <form id="list_selector" class="col-lg-6 col-md-6 col-sm-12" action="/client_create" method="POST">
@@ -53,10 +53,22 @@
                 {% endfor %}
               </select>
             </div>
-           <div class="form-group">
+           <!--<div class="form-group">
               <input type="text" class="form-control" placeholder="List Name" name="list_name" id="list_name">
+           </div>-->
+           <div class="form-group">
+              <input type="text" class="form-control" placeholder="Custom Field Name (e.g. favorite cuisine)" name="custom_field_name" id="custom_field_name">
            </div>
-           <input type="submit" class="btn btn-secondary btn-block" value="Submit" name="" onclick="create_list();">
+           <div class="form-group">
+              <input type="text" class="form-control" placeholder="Custom Field Value 1 (e.g. Italian)" name="custom_field_value1" id="custom_field_value1">
+           </div>
+           <div class="form-group">
+              <input type="text" class="form-control" placeholder="Custom Field Value 2 (e.g. Thai)" name="custom_field_value2" id="custom_field_value2">
+           </div>
+           <div class="form-group">
+              <input type="text" class="form-control" placeholder="Custom Field Value 3 (e.g. Japanese)" name="custom_field_value3" id="custom_field_value3">
+           </div>
+           <input type="submit" class="btn btn-secondary btn-block" value="Submit" name="" onclick="create_lists_and_subs();">
            {% if feedback %}
            <p class="text-danger float-right">{{ feedback }}</p>
            {% endif %}
@@ -107,16 +119,22 @@
       });
     }
 
-    function create_list() {
+    function create_lists_and_subs() {
         console.log("list func triggered");
         var client_name = document.getElementById("client_selector");
-        var list_name = document.getElementById("list_name");
+        var custom_field_name = document.getElementById("custom_field_name");
+        var custom_field_value1 = document.getElementById("custom_field_value1");
+        var custom_field_value2 = document.getElementById("custom_field_value2");
+        var custom_field_value3 = document.getElementById("custom_field_value3");
         var entry = {
-            client_id: client_name.value,
-            list_name: list_name.value
+            client_name: client_name.value,
+            custom_field_name: custom_field_name.value,
+            custom_field_value1: custom_field_value1.value,
+            custom_field_value2: custom_field_value2.value,
+            custom_field_value3: custom_field_value3.value
         };
 
-        fetch(`${window.origin}/client_create/create_list`, {
+        fetch(`${window.origin}/client_create/create_lists_and_subs`, {
       method: "POST",
       credentials: "include",
       body: JSON.stringify(entry),

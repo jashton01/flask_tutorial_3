@@ -43,11 +43,13 @@ def add_client(prospect_name, prospect_tz):
 def index():
     return render_template("public/index.html")
 
+
 @app.route("/client_create", methods=["GET", "POST"])
 def client_create():
-
+    '''
     if request.method == "POST":
         req = request.form
+
         missing = list()
         for k, v in req.items():
             if v == "":
@@ -56,14 +58,14 @@ def client_create():
             feedback = f"Missing fields for {', '.join(missing)}"
             return render_template("public/client_create.html", feedback=feedback)
 
-        #old code to create client, preserving for posterity
-        #req = request.form
-        #print("Your response is:", req)
-        #prospect_name = req['prospect_name']
-        #prospect_tz = req['prospect_tz']
-        #add_client(prospect_name=prospect_name,prospect_tz=prospect_tz)
-        #return redirect(request.url)
-
+        old code to create client, preserving for posterity
+        req = request.form
+        print("Your response is:", req)
+        prospect_name = req['prospect_name']
+        prospect_tz = req['prospect_tz']
+        add_client(prospect_name=prospect_name,prospect_tz=prospect_tz)
+        return redirect(request.url)
+    '''
     my_clients = get_clients()
     clients_and_ids = client_name_id(my_clients)
     return render_template("public/client_create.html", my_clients=my_clients, clients_and_ids=clients_and_ids)
@@ -78,16 +80,17 @@ def create_client():
     res = make_response(jsonify(req), 200)
     return res
 
-@app.route("/client_create/create_list", methods=["POST"])
+@app.route("/client_create/create_lists_and_subs", methods=["POST"])
 def create_list():
     req = request.get_json()
     print(req)
-    client_id = req['client_id']
-    list_name = req['list_name']
-    print(type(client_id))
-    create_new_list(clientid=client_id,list_name=list_name)
+    client_id = req['client_name']
+    #list_name = req['list_name']
+    custom_field_name = req['custom_field_name']
+    print("Client ID: ",client_id," Custom Field Name: ",custom_field_name)
+    #create_new_list(clientid=client_id,list_name=list_name)
     res = make_response(jsonify(req), 200)
-    #print(res)
+    print(res)
     return res
 
 
