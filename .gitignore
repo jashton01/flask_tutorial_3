@@ -247,3 +247,4 @@ env/lib/python3.7/site-packages/urllib3/util/timeout.py
 env/lib/python3.7/site-packages/urllib3/util/url.py
 env/lib/python3.7/site-packages/urllib3/util/wait.py
 env/bin/chardetect
+config.py

@@ -1,9 +1,10 @@
+import config
 from createsend import Subscriber, Client, CreateSend, List
 
 
-account_auth = {'api_key':'/7k+rgSybkxGMa64aUb+DPuAGpM5NxC3EjanNlSDjrRom3gKTHe6Z/t5GOJA9IlditAvifnjymZGVH6ZW1xqYE5EnuoJBr9hWXn7yscIZOyoeoJjugUcGix/fb8V2lzJIG+ab56sLijjsgL49KGvWw=='}
-client_auth = {'api_key':'otYR1hX2Rwul5NfryE/34LF2dpnEq54yCYn3ezdGVsEx5m6Ii3JJ0xp1+RpBPsnD2M3Nw7O2fkWTfZTFhGsK6YfZ2bFe2q/f0BVMLC1M08x45xlTEi3KSzjzASFxtxp0Wlepoi9SVYr6ga/vF7bd4A=='}
-a_test_client_auth = {'api_key':'lD25bbPMG56nPb6mtaJPxiP7bryKppJXB39hpNBS8CT2vJyJ8eULOl6hks7OCuqYP9iGzyLzcmwTddM66R+pRf41MMlwpIl0DRLPXeTFe97AldcFtEG+iApWgMWvFBDRPi57xA4XZ1kpCQIMPeh1PQ=='}
+account_auth = config.account_auth
+client_auth = config.client_auth
+a_test_client_auth = config.a_test_client_auth
 
 #my_lists=Client(client_auth)
 #lists_in_account=my_lists.lists()
