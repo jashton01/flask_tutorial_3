@@ -6,8 +6,8 @@ account_auth = config.account_auth
 client_auth = config.client_auth
 a_test_client_auth = config.a_test_client_auth
 
-#my_lists=Client(client_auth)
-#lists_in_account=my_lists.lists()
+my_lists=Client(client_auth)
+lists_in_account=my_lists.lists()
 
 #for l in lists_in_account:
 #    print(l)
@@ -63,4 +63,4 @@ my_subscriber.add("5926ac888cffa2665144bae9127a89a5", "jashton+api5@sailthru.com
 
 subscribers = [{"EmailAddress":"subscriber1@example.com","Name":"New Subscriber One","CustomFields":[{"Key":"website","Value":"http://example.com"},{"Key":"interests","Value":"magic"},{"Key":"interests","Value":"romantic walks"},{"Key":"age","Value":"","Clear":True}],"ConsentToTrack":"Yes"},{"EmailAddress":"subscriber2@example.com","Name":"New Subscriber Two","ConsentToTrack":"No"},{"EmailAddress":"subscriber3@example.com","Name":"New Subscriber Three","ConsentToTrack":"Unchanged"}]
 
-my_subscriber.import_subscribers("5926ac888cffa2665144bae9127a89a5", subscribers, True, False, True)
+#my_subscriber.import_subscribers("5926ac888cffa2665144bae9127a89a5", subscribers, True, False, True)
