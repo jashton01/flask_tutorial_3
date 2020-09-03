@@ -37,8 +37,7 @@ def print_random_name():
 
 my_names=print_random_name()
 
-random_subscriber={}
-subscriber_list=[]
+print(my_names)
 
 
 test_field_name="Main Hobby"
@@ -47,18 +46,22 @@ possible_interests=["getting drunk","playing cards","rollerblading"]
 #fields_created = create_custom_fields(field_name=test_field_name,options=possible_interests)
 #print("You created the following entry" + fields_created)
 
+def create_subscriber_list():
+    subscriber_list=[]
+    for i in my_names['results']:
+        print(i['name']['first']+" "+i['name']['last'])
+        random_subscriber={}
+        random_subscriber.update(Name = i['name']['first']+" "+i['name']['last'])
+        random_subscriber.update(EmailAddress = i['email'])
+        random_subscriber.update(ConsentToTrack = "Yes")
+        random_subscriber.update(CustomFields = [{"Value":random.choice(possible_interests),"Key":test_field_name}])
+        #print(random_subscriber)
+        subscriber_list.append(random_subscriber)
+        #print("sub list in function: " + subscriber_list)
+    return subscriber_list
 
-#NEED TO CREATE THE CUSTOM FIELDS first
-for i in my_names['results']:
-    print(i['name']['first']+" "+i['name']['last'])
-    random_subscriber={}
-    random_subscriber.update(Name = i['name']['first']+" "+i['name']['last'])
-    random_subscriber.update(EmailAddress = i['email'])
-    random_subscriber.update(ConsentToTrack = "Yes")
-    random_subscriber.update(CustomFields = [{"Value":random.choice(possible_interests),"Key":test_field_name}])
-    #print(random_subscriber)
-    subscriber_list.append(random_subscriber)
-
+subscriber_list=create_subscriber_list()
+print(subscriber_list)
 
 #print(subscriber_list)
 #create_new_list(clientid="9cde80d058d8e4955a076d33b6ec2294")
